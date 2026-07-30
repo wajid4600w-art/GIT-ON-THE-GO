@@ -587,7 +587,7 @@
             </div>
 
             <!-- SECTION 3: Step-by-Step Breakdown -->
-            <h2 class="section-title">🚀 Step-by-Step Execution Guide</h2>
+            <h2 class="section-title">🚀 Core Workflow Execution Guide</h2>
             <div class="process">
 
                 <!-- Step 1: Clone -->
@@ -667,6 +667,147 @@
                 </div>
             </div>
 
+            <!-- SECTION 4: Everyday Essential Git Commands (Categorized Guide) -->
+            <h2 class="section-title">🛠️ Complete Everyday Git Commands Handbook</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(48%, 1fr)); gap: 20px; margin-bottom: 40px;">
+
+                <!-- Category 1: Setup & Initialization -->
+                <div style="background: #1e1e2e; border: 1px solid #313244; padding: 20px; border-radius: 8px;">
+                    <h3 style="color: #89b4fa; margin-bottom: 12px; font-size: 1.2em;">📁 1. Project Initialization & Remote Setup</h3>
+                    <p style="color: #bac2de; font-size: 13px; margin-bottom: 10px;">Used when starting a new project from scratch or connecting local code to GitHub.</p>
+
+                    <div style="margin-bottom: 12px;">
+                        <strong style="color: #cdd6f4; font-size: 13px;">Initialize local repository:</strong>
+                        <div class="command">git init</div>
+                        <span style="color: #a6adc8; font-size: 12px;">Creates a hidden <code>.git</code> folder in your current workspace directory.</span>
+                    </div>
+
+                    <div style="margin-bottom: 12px;">
+                        <strong style="color: #cdd6f4; font-size: 13px;">Connect local repo to GitHub remote:</strong>
+                        <div class="command">git remote add origin https://github.com/user/repo.git</div>
+                        <span style="color: #a6adc8; font-size: 12px;">Links your local folder to a remote repository URL named 'origin'.</span>
+                    </div>
+
+                    <div>
+                        <strong style="color: #cdd6f4; font-size: 13px;">Verify connected remotes:</strong>
+                        <div class="command">git remote -v</div>
+                    </div>
+                </div>
+
+                <!-- Category 2: Branching & Feature Management -->
+                <div style="background: #1e1e2e; border: 1px solid #313244; padding: 20px; border-radius: 8px;">
+                    <h3 style="color: #a6e3a1; margin-bottom: 12px; font-size: 1.2em;">🌿 2. Branching & Feature Workflow</h3>
+                    <p style="color: #bac2de; font-size: 13px; margin-bottom: 10px;">Used to isolate experimental features or bug fixes from the main codebase.</p>
+
+                    <div style="margin-bottom: 12px;">
+                        <strong style="color: #cdd6f4; font-size: 13px;">Create and switch to a new branch:</strong>
+                        <div class="command">git switch -c feature-login  # or: git checkout -b feature-login</div>
+                    </div>
+
+                    <div style="margin-bottom: 12px;">
+                        <strong style="color: #cdd6f4; font-size: 13px;">List all local branches:</strong>
+                        <div class="command">git branch</div>
+                        <span style="color: #a6adc8; font-size: 12px;">The branch marked with an asterisk (<code>*</code>) is your current active branch.</span>
+                    </div>
+
+                    <div style="margin-bottom: 12px;">
+                        <strong style="color: #cdd6f4; font-size: 13px;">Merge feature branch into main:</strong>
+                        <div class="command">git switch main<br>git merge feature-login</div>
+                    </div>
+
+                    <div>
+                        <strong style="color: #cdd6f4; font-size: 13px;">Delete branch after merging:</strong>
+                        <div class="command">git branch -d feature-login</div>
+                    </div>
+                </div>
+
+                <!-- Category 3: Daily Syncing & Fetching -->
+                <div style="background: #1e1e2e; border: 1px solid #313244; padding: 20px; border-radius: 8px;">
+                    <h3 style="color: #f9e2af; margin-bottom: 12px; font-size: 1.2em;">🔄 3. Remote Syncing (Pull, Fetch & Push)</h3>
+                    <p style="color: #bac2de; font-size: 13px; margin-bottom: 10px;">Used daily to keep local files in sync with teammates on GitHub.</p>
+
+                    <div style="margin-bottom: 12px;">
+                        <strong style="color: #cdd6f4; font-size: 13px;">Fetch changes without merging:</strong>
+                        <div class="command">git fetch origin</div>
+                        <span style="color: #a6adc8; font-size: 12px;">Downloads remote updates to inspect before combining with local code.</span>
+                    </div>
+
+                    <div style="margin-bottom: 12px;">
+                        <strong style="color: #cdd6f4; font-size: 13px;">Pull & merge remote updates:</strong>
+                        <div class="command">git pull origin main</div>
+                        <span style="color: #a6adc8; font-size: 12px;">Shortcut for <code>git fetch</code> + <code>git merge</code>.</span>
+                    </div>
+
+                    <div>
+                        <strong style="color: #cdd6f4; font-size: 13px;">Push new branch & set upstream tracking:</strong>
+                        <div class="command">git push -u origin feature-login</div>
+                        <span style="color: #a6adc8; font-size: 12px;">Sets default tracking remote branch so subsequent pushes require only <code>git push</code>.</span>
+                    </div>
+                </div>
+
+                <!-- Category 4: Inspection & History -->
+                <div style="background: #1e1e2e; border: 1px solid #313244; padding: 20px; border-radius: 8px;">
+                    <h3 style="color: #cba6f7; margin-bottom: 12px; font-size: 1.2em;">🔍 4. History, Logs & Code Inspection</h3>
+                    <p style="color: #bac2de; font-size: 13px; margin-bottom: 10px;">Used to track line-by-line differences and review past commit history.</p>
+
+                    <div style="margin-bottom: 12px;">
+                        <strong style="color: #cdd6f4; font-size: 13px;">View exact line changes before staging:</strong>
+                        <div class="command">git diff</div>
+                    </div>
+
+                    <div style="margin-bottom: 12px;">
+                        <strong style="color: #cdd6f4; font-size: 13px;">View clean single-line commit history:</strong>
+                        <div class="command">git log --oneline --graph --all</div>
+                    </div>
+
+                    <div>
+                        <strong style="color: #cdd6f4; font-size: 13px;">Inspect details of a specific commit:</strong>
+                        <div class="command">git show &lt;commit-hash&gt;</div>
+                    </div>
+                </div>
+
+                <!-- Category 5: Undoing, Stashing & Emergency Recovery -->
+                <div style="background: #1e1e2e; border: 1px solid #313244; padding: 20px; border-radius: 8px; grid-column: span 2;">
+                    <h3 style="color: #f38ba8; margin-bottom: 12px; font-size: 1.2em;">⚡ 5. Undoing Changes, Stashing & Safety Nets</h3>
+                    <p style="color: #bac2de; font-size: 13px; margin-bottom: 10px;">Used when you make a mistake or need to quickly switch tasks without losing uncommitted work.</p>
+
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 15px;">
+                        <div>
+                            <strong style="color: #cdd6f4; font-size: 13px;">Temporarily shelf uncommitted changes:</strong>
+                            <div class="command">git stash</div>
+                            <span style="color: #a6adc8; font-size: 12px;">Cleans working directory so you can switch branches cleanly.</span>
+                        </div>
+
+                        <div>
+                            <strong style="color: #cdd6f4; font-size: 13px;">Restore stashed changes:</strong>
+                            <div class="command">git stash pop</div>
+                            <span style="color: #a6adc8; font-size: 12px;">Re-applies saved stashed edits back to your current working tree.</span>
+                        </div>
+
+                        <div>
+                            <strong style="color: #cdd6f4; font-size: 13px;">Discard uncommitted changes in a file:</strong>
+                            <div class="command">git restore index.html</div>
+                        </div>
+
+                        <div>
+                            <strong style="color: #cdd6f4; font-size: 13px;">Unstage a file (keep local edits):</strong>
+                            <div class="command">git restore --staged index.html</div>
+                        </div>
+
+                        <div>
+                            <strong style="color: #cdd6f4; font-size: 13px;">Soft undo last commit (keep staged files):</strong>
+                            <div class="command">git reset --soft HEAD~1</div>
+                        </div>
+
+                        <div>
+                            <strong style="color: #cdd6f4; font-size: 13px;">Amend last commit message or files:</strong>
+                            <div class="command">git commit --amend -m "Updated commit message"</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
             <!-- SUMMARY TABLE -->
             <h2 class="section-title">📊 Command & UI Quick Reference</h2>
             <table>
@@ -680,6 +821,12 @@
                 </thead>
                 <tbody>
                     <tr>
+                        <td><strong>Initialize Repo</strong></td>
+                        <td><code>git init</code></td>
+                        <td>Source Control ➔ Click <strong>Initialize Repository</strong></td>
+                        <td>Local Folder ➔ Local Repo</td>
+                    </tr>
+                    <tr>
                         <td><strong>Clone</strong></td>
                         <td><code>git clone &lt;url&gt;</code></td>
                         <td><code>Ctrl+Shift+P</code> ➔ <code>Git: Clone</code></td>
@@ -692,12 +839,55 @@
                         <td>Working Directory</td>
                     </tr>
                     <tr>
-                        <td><strong>Stage</strong></td>
+                        <td><strong>Stage Changes</strong></td>
                         <td><code>git add .</code></td>
                         <td>Click <strong><code>+</code></strong> icon beside changes</td>
                         <td>Working Tree ➔ Staging</td>
                     </tr>
                     <tr>
+                        <td><strong>Commit</strong></td>
+                        <td><code>git commit -m "msg"</code></td>
+                        <td>Type message ➔ Click <strong>✓ Commit</strong></td>
+                        <td>Staging ➔ Local Repo</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Create / Switch Branch</strong></td>
+                        <td><code>git switch -c &lt;branch&gt;</code></td>
+                        <td>Click branch name in bottom Status Bar ➔ Create branch</td>
+                        <td>Local Branch Switch</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Push to GitHub</strong></td>
+                        <td><code>git push</code></td>
+                        <td>Click <strong>Sync Changes 🔄</strong> or <strong>Publish Branch</strong></td>
+                        <td>Local Repo ➔ GitHub Cloud</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Pull Updates</strong></td>
+                        <td><code>git pull</code></td>
+                        <td>Source Control ➔ <strong>...</strong> ➔ Pull</td>
+                        <td>GitHub Cloud ➔ Local Computer</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Stash Work</strong></td>
+                        <td><code>git stash</code></td>
+                        <td>Source Control ➔ <strong>...</strong> ➔ Stash ➔ Stash</td>
+                        <td>Working Tree ➔ Temporary Shelf</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Discard Changes</strong></td>
+                        <td><code>git restore &lt;file&gt;</code></td>
+                        <td>Click <strong>↩ Discard Changes</strong> icon beside file</td>
+                        <td>Revert to Last Commit</td>
+                    </tr>
+                    <tr>
+                        <td><strong>View History</strong></td>
+                        <td><code>git log --oneline</code></td>
+                        <td>Timeline Panel in Explorer Sidebar</td>
+                        <td>Commit History Log</td>
+                    </tr>
+                </tbody>
+            </table>
                         <td><strong>Commit</strong></td>
                         <td><code>git commit -m "msg"</code></td>
                         <td>Type message ➔ Click <strong>✓ Commit</strong></td>
