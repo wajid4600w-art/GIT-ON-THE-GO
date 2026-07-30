@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Git & GitHub Visual Guide for VS Code</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+            background: linear-gradient(135deg, #1e1e2e 0%, #0f0f1a 100%);
+            color: #d4d4d4;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: #181825;
+            border-radius: 12px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+            border: 1px solid #313244;
+        }
+        header {
+            background: linear-gradient(135deg, #007acc 0%, #1f4287 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            position: relative;
+        }
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+        header p {
+            font-size: 1.1em;
+            opacity: 0.95;
+            color: #cdd6f4;
+        }
+        .content {
+            padding: 40px;
+        }
+
+        .section-title {
+            color: #89b4fa;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #313244;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Flow Architecture Diagram */
+        .architecture-card {
+            background: #1e1e2e;
+            border: 1px solid #45475a;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 40px;
+        }
+
+        .svg-diagram {
+            width: 100%;
+            height: auto;
+            max-height: 380px;
+        }
+
+        /* VS Code UI Visual Mockup */
+        .vscode-mockup-wrapper {
+            background: #1e1e2e;
+            border: 1px solid #45475a;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 40px;
+        }
+
+        .vscode-window {
+            background: #181825;
+            border-radius: 8px;
+            border: 1px solid #313244;
+            overflow: hidden;
+            font-family: Consolas, 'Courier New', monospace;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+        }
+
+        .vscode-titlebar {
+            background: #11111b;
+            padding: 8px 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-bottom: 1px solid #313244;
+            font-size: 12px;
+            color: #a6adc8;
+        }
+        .window-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+        .dot-red { background: #f38ba8; }
+        .dot-yellow { background: #f9e2af; }
+        .dot-green { background: #a6e3a1; }
+
+        .vscode-body {
+            display: flex;
+            min-height: 320px;
+        }
+
+        .vscode-activitybar {
+            width: 50px;
+            background: #11111b;
+            border-right: 1px solid #313244;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 15px;
+            gap: 20px;
+        }
+
+        .activity-icon {
+            color: #6c7086;
+            font-size: 20px;
+            position: relative;
+            cursor: pointer;
+        }
+        .activity-icon.active {
+            color: #89b4fa;
+            border-left: 2px solid #89b4fa;
+            padding-left: 10px;
+        }
+        .activity-badge {
+            position: absolute;
+            top: -5px;
+            right: -8px;
+            background: #007acc;
+            color: white;
+            font-size: 10px;
+            font-weight: bold;
+            padding: 2px 5px;
+            border-radius: 10px;
+        }
+
+        .vscode-sidebar {
+            width: 280px;
+            background: #181825;
+            border-right: 1px solid #313244;
+            padding: 15px;
+            font-size: 13px;
+        }
+
+        .sidebar-header {
+            font-weight: bold;
+            color: #cdd6f4;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            text-transform: uppercase;
+            font-size: 11px;
+            letter-spacing: 1px;
+        }
+
+        .commit-box {
+            background: #1e1e2e;
+            border: 1px solid #45475a;
+            border-radius: 4px;
+            padding: 8px;
+            color: #a6adc8;
+            margin-bottom: 10px;
+            font-size: 12px;
+        }
+
+        .btn-commit {
+            background: #007acc;
+            color: white;
+            border: none;
+            width: 100%;
+            padding: 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            cursor: pointer;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            margin-bottom: 15px;
+        }
+
+        .section-header {
+            color: #a6adc8;
+            font-size: 11px;
+            text-transform: uppercase;
+            margin-top: 15px;
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .file-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 4px 6px;
+            border-radius: 3px;
+            color: #cdd6f4;
+            margin-bottom: 2px;
+        }
+        .file-item:hover {
+            background: #313244;
+        }
+        .badge-status {
+            font-weight: bold;
+            font-size: 11px;
+            padding: 1px 5px;
+            border-radius: 3px;
+        }
+        .status-m { color: #e2c08d; } /* Modified */
+        .status-u { color: #a6e3a1; } /* Untracked */
+        .status-a { color: #89b4fa; } /* Added */
+
+        .vscode-editor {
+            flex-grow: 1;
+            background: #1e1e2e;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .editor-tab {
+            background: #181825;
+            color: #cdd6f4;
+            padding: 6px 15px;
+            border-top: 2px solid #007acc;
+            display: inline-block;
+            font-size: 12px;
+            border-radius: 4px 4px 0 0;
+            width: max-content;
+        }
+
+        /* Annotated Callouts & Markers */
+        .mark-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: #f38ba8;
+            color: #11111b;
+            font-weight: bold;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            font-size: 12px;
+        }
+
+        .marks-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .mark-card {
+            background: #11111b;
+            border-left: 4px solid #89b4fa;
+            padding: 12px 15px;
+            border-radius: 6px;
+            font-size: 13px;
+        }
+        .mark-card h4 {
+            color: #89b4fa;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Steps Section */
+        .process {
+            margin-bottom: 40px;
+        }
+        .step {
+            display: flex;
+            margin-bottom: 25px;
+            gap: 20px;
+            background: #1e1e2e;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #313244;
+        }
+        .step-number {
+            flex-shrink: 0;
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, #007acc 0%, #89b4fa 100%);
+            color: #11111b;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3em;
+            font-weight: bold;
+        }
+        .step-content {
+            flex-grow: 1;
+        }
+        .step-content h3 {
+            color: #89b4fa;
+            margin-bottom: 8px;
+            font-size: 1.3em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .step-content p {
+            color: #bac2de;
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+        .command {
+            background: #11111b;
+            border-left: 4px solid #007acc;
+            padding: 10px 14px;
+            border-radius: 4px;
+            font-family: Consolas, 'Courier New', monospace;
+            color: #a6e3a1;
+            overflow-x: auto;
+            margin: 10px 0;
+            font-size: 14px;
+        }
+        .gui-instruction {
+            background: #313244;
+            color: #cdd6f4;
+            padding: 10px 14px;
+            border-radius: 4px;
+            font-size: 13px;
+            margin-top: 8px;
+            border-left: 4px solid #f9e2af;
+        }
+        .arrow-divider {
+            text-align: center;
+            color: #89b4fa;
+            font-size: 1.8em;
+            margin: 15px 0;
+            font-weight: bold;
+        }
+
+        /* Summary Table */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #1e1e2e;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid #313244;
+        }
+        th, td {
+            padding: 14px 16px;
+            text-align: left;
+            border-bottom: 1px solid #313244;
+        }
+        th {
+            background: #11111b;
+            color: #89b4fa;
+            font-size: 14px;
+        }
+        td {
+            color: #cdd6f4;
+            font-size: 13px;
+        }
+        tr:last-child td {
+            border-bottom: none;
+        }
+        code {
+            background: #11111b;
+            color: #f9e2af;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: Consolas, monospace;
+        }
+
+        footer {
+            background: #11111b;
+            padding: 20px;
+            text-align: center;
+            color: #a6adc8;
+            border-top: 1px solid #313244;
+            font-size: 13px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>⚡ Git & GitHub Visual Guide for VS Code</h1>
+            <p>Mastering Version Control with Visual Diagrams & Directional Instructions</p>
+        </header>
+
+        <div class="content">
+
+            <!-- SECTION 1: Entire Git & GitHub Architecture Diagram -->
+            <h2 class="section-title">🗺️ Complete Git & GitHub Lifecycle Map</h2>
+            <div class="architecture-card">
+                <svg class="svg-diagram" viewBox="0 0 950 260" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                            <path d="M 0 0 L 10 5 L 0 10 z" fill="#89b4fa" />
+                        </marker>
+                        <marker id="arrow-green" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                            <path d="M 0 0 L 10 5 L 0 10 z" fill="#a6e3a1" />
+                        </marker>
+                        <marker id="arrow-orange" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                            <path d="M 0 0 L 10 5 L 0 10 z" fill="#f9e2af" />
+                        </marker>
+                    </defs>
+
+                    <!-- Zone 1: Working Directory -->
+                    <rect x="20" y="50" width="190" height="150" rx="10" fill="#181825" stroke="#89b4fa" stroke-width="2"/>
+                    <text x="115" y="80" fill="#89b4fa" font-weight="bold" font-size="14" text-anchor="middle">💻 Working Tree</text>
+                    <text x="115" y="105" fill="#a6adc8" font-size="11" text-anchor="middle">(VS Code Editor)</text>
+                    <rect x="40" y="125" width="150" height="50" rx="5" fill="#313244"/>
+                    <text x="115" y="155" fill="#e2c08d" font-size="12" text-anchor="middle">Unstaged Changes (M/U)</text>
+
+                    <!-- Arrow 1: git add -->
+                    <path d="M 210 120 L 260 120" stroke="#89b4fa" stroke-width="3" marker-end="url(#arrow)"/>
+                    <rect x="215" y="95" width="50" height="20" rx="3" fill="#007acc"/>
+                    <text x="240" y="109" fill="#ffffff" font-weight="bold" font-size="10" text-anchor="middle">git add</text>
+
+                    <!-- Zone 2: Staging Area -->
+                    <rect x="270" y="50" width="190" height="150" rx="10" fill="#181825" stroke="#a6e3a1" stroke-width="2"/>
+                    <text x="365" y="80" fill="#a6e3a1" font-weight="bold" font-size="14" text-anchor="middle">📋 Staging Area</text>
+                    <text x="365" y="105" fill="#a6adc8" font-size="11" text-anchor="middle">(Index / Prepared)</text>
+                    <rect x="290" y="125" width="150" height="50" rx="5" fill="#313244"/>
+                    <text x="365" y="155" fill="#a6e3a1" font-size="12" text-anchor="middle">Staged Files (+)</text>
+
+                    <!-- Arrow 2: git commit -->
+                    <path d="M 460 120 L 510 120" stroke="#a6e3a1" stroke-width="3" marker-end="url(#arrow-green)"/>
+                    <rect x="460" y="95" width="60" height="20" rx="3" fill="#23a55a"/>
+                    <text x="490" y="109" fill="#ffffff" font-weight="bold" font-size="10" text-anchor="middle">git commit</text>
+
+                    <!-- Zone 3: Local Repository -->
+                    <rect x="520" y="50" width="190" height="150" rx="10" fill="#181825" stroke="#f9e2af" stroke-width="2"/>
+                    <text x="615" y="80" fill="#f9e2af" font-weight="bold" font-size="14" text-anchor="middle">📦 Local Repository</text>
+                    <text x="615" y="105" fill="#a6adc8" font-size="11" text-anchor="middle">(.git folder on disk)</text>
+                    <rect x="540" y="125" width="150" height="50" rx="5" fill="#313244"/>
+                    <text x="615" y="155" fill="#f9e2af" font-size="12" text-anchor="middle">Committed Snapshots</text>
+
+                    <!-- Arrow 3: git push -->
+                    <path d="M 710 120 L 760 120" stroke="#f9e2af" stroke-width="3" marker-end="url(#arrow-orange)"/>
+                    <rect x="712" y="95" width="52" height="20" rx="3" fill="#d97706"/>
+                    <text x="738" y="109" fill="#ffffff" font-weight="bold" font-size="10" text-anchor="middle">git push</text>
+
+                    <!-- Zone 4: Remote Repository (GitHub) -->
+                    <rect x="770" y="50" width="160" height="150" rx="10" fill="#181825" stroke="#cba6f7" stroke-width="2"/>
+                    <text x="850" y="80" fill="#cba6f7" font-weight="bold" font-size="14" text-anchor="middle">☁️ GitHub Remote</text>
+                    <text x="850" y="105" fill="#a6adc8" font-size="11" text-anchor="middle">(github.com Cloud)</text>
+                    <rect x="785" y="125" width="130" height="50" rx="5" fill="#313244"/>
+                    <text x="850" y="155" fill="#cba6f7" font-size="12" text-anchor="middle">Synced Main Branch</text>
+
+                    <!-- Bottom Return Line: git clone / git pull -->
+                    <path d="M 850 205 L 850 235 L 115 235 L 115 205" fill="none" stroke="#f38ba8" stroke-width="2" stroke-dasharray="5,5" marker-end="url(#arrow)"/>
+                    <rect x="420" y="224" width="110" height="20" rx="3" fill="#f38ba8"/>
+                    <text x="475" y="238" fill="#11111b" font-weight="bold" font-size="11" text-anchor="middle">git pull / clone ↩</text>
+                </svg>
+            </div>
+
+            <!-- SECTION 2: VS Code Source Control UI Mockup with Marked Directions -->
+            <h2 class="section-title">🖥️ VS Code Source Control UI & Directional Markers</h2>
+            <div class="vscode-mockup-wrapper">
+                <p style="color: #bac2de; margin-bottom: 15px; font-size: 14px;">
+                    This mockup illustrates where each Git action is executed visually inside VS Code's <strong>Source Control Tab (Ctrl+Shift+G)</strong>:
+                </p>
+
+                <div class="vscode-window">
+                    <div class="vscode-titlebar">
+                        <span class="window-dot dot-red"></span>
+                        <span class="window-dot dot-yellow"></span>
+                        <span class="window-dot dot-green"></span>
+                        <span style="margin-left: 10px;">GIT-ON-THE-GO - Visual Studio Code</span>
+                    </div>
+                    <div class="vscode-body">
+                        <!-- Activity Bar -->
+                        <div class="vscode-activitybar">
+                            <span class="activity-icon">📁</span>
+                            <span class="activity-icon active">
+                                🌿
+                                <span class="activity-badge">2</span>
+                            </span>
+                            <span style="position: absolute; left: 65px; top: 110px;" class="mark-badge">1</span>
+                            <span class="activity-icon">🔍</span>
+                            <span class="activity-icon">⚙️</span>
+                        </div>
+
+                        <!-- Sidebar -->
+                        <div class="vscode-sidebar">
+                            <div class="sidebar-header">
+                                <span>Source Control</span>
+                                <span>... 🔄</span>
+                            </div>
+
+                            <!-- Commit Message Box -->
+                            <div class="commit-box" style="position: relative;">
+                                Message (Ctrl+Enter to commit)
+                                <span style="position: absolute; right: -25px; top: 2px;" class="mark-badge">3</span>
+                            </div>
+                            <button class="btn-commit">
+                                ✓ Commit
+                            </button>
+
+                            <!-- Staged Changes -->
+                            <div class="section-header">
+                                <span>Staged Changes (1)</span>
+                                <span>-</span>
+                            </div>
+                            <div class="file-item">
+                                <span>📄 Index.html</span>
+                                <span class="badge-status status-m">M</span>
+                            </div>
+
+                            <!-- Changes / Untracked -->
+                            <div class="section-header" style="position: relative;">
+                                <span>Changes (1)</span>
+                                <span style="position: absolute; right: -25px; top: -2px;" class="mark-badge">2</span>
+                            </div>
+                            <div class="file-item">
+                                <span>📄 style.css</span>
+                                <span style="display:flex; gap:5px; align-items:center;">
+                                    <span style="color:#a6e3a1; cursor:pointer;" title="Stage File (+)">+</span>
+                                    <span class="badge-status status-u">U</span>
+                                </span>
+                            </div>
+
+                            <!-- Push / Sync Bar -->
+                            <div style="margin-top: 25px; padding: 8px; background: #313244; border-radius: 4px; font-size: 11px; display: flex; justify-content: space-between; align-items: center; position: relative;">
+                                <span>☁️ Publish / Sync Branch</span>
+                                <span class="mark-badge" style="position: absolute; right: -25px; top: 2px;">4</span>
+                            </div>
+                        </div>
+
+                        <!-- Editor Preview -->
+                        <div class="vscode-editor">
+                            <div class="editor-tab">📄 Index.html</div>
+                            <div style="font-family: Consolas, monospace; font-size: 13px; color: #a6adc8; line-height: 1.8;">
+                                <span style="color: #89b4fa;">&lt;!DOCTYPE html&gt;</span><br>
+                                <span style="color: #f9e2af;">&lt;html</span> <span style="color: #a6e3a1;">lang</span>=<span style="color: #e2c08d;">"en"</span><span style="color: #f9e2af;">&gt;</span><br>
+                                &nbsp;&nbsp;<span style="color: #f9e2af;">&lt;head&gt;</span><br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #f9e2af;">&lt;title&gt;</span>Git Workflow Guide<span style="color: #f9e2af;">&lt;/title&gt;</span><br>
+                                &nbsp;&nbsp;<span style="color: #f9e2af;">&lt;/head&gt;</span><br>
+                                &nbsp;&nbsp;<span style="color: #f9e2af;">&lt;body&gt;</span> <span style="color: #6c7086;">&lt;!-- Editing files in Working Directory --&gt;</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mark Card Descriptions -->
+                <div class="marks-grid">
+                    <div class="mark-card">
+                        <h4><span class="mark-badge">1</span> Open Source Control</h4>
+                        Press <code>Ctrl + Shift + G</code> or click the Source Control icon on the left Activity Bar to view changed files.
+                    </div>
+                    <div class="mark-card">
+                        <h4><span class="mark-badge">2</span> Stage Changes (git add)</h4>
+                        Hover over a file under <strong>Changes</strong> and click the <strong><code>+</code> (Plus)</strong> icon to move it to Staged Changes.
+                    </div>
+                    <div class="mark-card">
+                        <h4><span class="mark-badge">3</span> Commit (git commit)</h4>
+                        Type a message describing your update (e.g. <em>"Add visual diagram"</em>) and click the <strong>✓ Commit</strong> button.
+                    </div>
+                    <div class="mark-card">
+                        <h4><span class="mark-badge">4</span> Push to GitHub (git push)</h4>
+                        Click <strong>Sync Changes</strong> or <strong>Publish Branch</strong> to send local commits up to your GitHub repository.
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECTION 3: Step-by-Step Breakdown -->
+            <h2 class="section-title">🚀 Step-by-Step Execution Guide</h2>
+            <div class="process">
+
+                <!-- Step 1: Clone -->
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>1. Clone Repository (Remote ➔ Local)</h3>
+                        <p>Downloads a complete repository from GitHub to your local machine.</p>
+                        <div class="command">git clone https://github.com/username/repository.git</div>
+                        <div class="gui-instruction">
+                            <strong>VS Code Direction:</strong> Press <code>Ctrl + Shift + P</code> ➔ Type <code>Git: Clone</code> ➔ Paste GitHub Repository URL.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="arrow-divider">↓</div>
+
+                <!-- Step 2: Status -->
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>2. Check Status (Working Directory)</h3>
+                        <p>Inspects modified, added, or deleted files before staging.</p>
+                        <div class="command">git status</div>
+                        <div class="gui-instruction">
+                            <strong>VS Code Direction:</strong> Look at the <strong>Source Control Sidebar</strong>. Badges show:
+                            <span class="badge-status status-m">M</span> Modified,
+                            <span class="badge-status status-u">U</span> Untracked,
+                            <span class="badge-status status-a">A</span> Added.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="arrow-divider">↓</div>
+
+                <!-- Step 3: Add / Stage -->
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>3. Stage Changes (Working Directory ➔ Staging Area)</h3>
+                        <p>Prepares specific changes to be bundled into the next commit snapshot.</p>
+                        <div class="command">git add .</div>
+                        <div class="gui-instruction">
+                            <strong>VS Code Direction:</strong> Click the <strong><code>+</code></strong> icon next to individual files or next to the <strong>Changes</strong> section header.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="arrow-divider">↓</div>
+
+                <!-- Step 4: Commit -->
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h3>4. Commit (Staging Area ➔ Local Repository)</h3>
+                        <p>Saves staged snapshot permanently into your local Git history database.</p>
+                        <div class="command">git commit -m "Descriptive commit message"</div>
+                        <div class="gui-instruction">
+                            <strong>VS Code Direction:</strong> Type message in the input box ➔ Click <strong>✓ Commit</strong> button or press <code>Ctrl + Enter</code>.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="arrow-divider">↓</div>
+
+                <!-- Step 5: Push -->
+                <div class="step">
+                    <div class="step-number">5</div>
+                    <div class="step-content">
+                        <h3>5. Push to GitHub (Local Repository ➔ Remote Cloud)</h3>
+                        <p>Uploads local commits to GitHub so team members or cloud backups can access them.</p>
+                        <div class="command">git push origin main</div>
+                        <div class="gui-instruction">
+                            <strong>VS Code Direction:</strong> Click <strong>Sync Changes 🔄</strong> in the bottom Status Bar or top of Source Control menu.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SUMMARY TABLE -->
+            <h2 class="section-title">📊 Command & UI Quick Reference</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Action</th>
+                        <th>Terminal Command</th>
+                        <th>VS Code UI Button / Shortcut</th>
+                        <th>Direction / Stage</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Clone</strong></td>
+                        <td><code>git clone &lt;url&gt;</code></td>
+                        <td><code>Ctrl+Shift+P</code> ➔ <code>Git: Clone</code></td>
+                        <td>Cloud ➔ Computer</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Status</strong></td>
+                        <td><code>git status</code></td>
+                        <td>Source Control Sidebar (<code>Ctrl+Shift+G</code>)</td>
+                        <td>Working Directory</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Stage</strong></td>
+                        <td><code>git add .</code></td>
+                        <td>Click <strong><code>+</code></strong> icon beside changes</td>
+                        <td>Working Tree ➔ Staging</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Commit</strong></td>
+                        <td><code>git commit -m "msg"</code></td>
+                        <td>Type message ➔ Click <strong>✓ Commit</strong></td>
+                        <td>Staging ➔ Local Repo</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Push</strong></td>
+                        <td><code>git push</code></td>
+                        <td>Click <strong>Sync Changes 🔄</strong></td>
+                        <td>Local Repo ➔ GitHub Cloud</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Pull</strong></td>
+                        <td><code>git pull</code></td>
+                        <td>Source Control ➔ <strong>...</strong> ➔ Pull</td>
+                        <td>GitHub Cloud ➔ Local Computer</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <footer>
+            <p>&copy; 2026 Git & GitHub Visual Guide | Designed for VS Code</p>
+        </footer>
+    </div>
+</body>
+</html>
